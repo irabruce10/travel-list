@@ -32,13 +32,24 @@ function Logo() {
 }
 
 function Form({ addh }) {
-  const [newItem, setNewItem] = useState("");
+  const [description, setDescription] = useState("");
+  const [quantity, setQuantity] = useState(1);
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (!description) return;
+    const newItem = { description, quantity, packed: false, id: Date.now() };
+    console.log(newItem);
+
+    setDescription("");
+    setQuantity(1);
+  }
 
   return (
-    <form className="add-form">
+    <form className="add-form" onClick={handleSubmit}>
       <h3>What do you need for your 😍 trip?</h3>
 
-      <select>
+      <select value={quantity} onChange={(e) => setQuantity(+e.target.value)}>
         {Array.from({ length: 20 }, (_, i) => i + 1).map((num) => (
           <option value={num} key={num}>
             {num}
@@ -47,8 +58,8 @@ function Form({ addh }) {
       </select>
 
       <input
-        value={newItem}
-        onChange={(e) => setNewItem(e.target.value)}
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
       ></input>
       <button onClick={addh}>Add</button>
     </form>
