@@ -8,20 +8,16 @@ const initialItems = [
 ];
 
 function App() {
-  const [item, setItem] = useState([]);
+  const [items, setItem] = useState([]);
 
-  function addHandle(e) {
-    e.preventDefault();
-    console.log("jdjs");
-    console.log(item);
-
-    setItem([...item]);
+  function addHandle(item) {
+    setItem((items) => [...items, item]);
   }
   return (
     <div className="app">
       <Logo />
       <Form addh={addHandle} />
-      <Packinglist item={item} />
+      <Packinglist items={items} />
       <Stats />
     </div>
   );
@@ -40,6 +36,8 @@ function Form({ addh }) {
     if (!description) return;
     const newItem = { description, quantity, packed: false, id: Date.now() };
     console.log(newItem);
+
+    addh(newItem);
 
     setDescription("");
     setQuantity(1);
@@ -61,16 +59,16 @@ function Form({ addh }) {
         value={description}
         onChange={(e) => setDescription(e.target.value)}
       ></input>
-      <button onClick={addh}>Add</button>
+      <button>Add</button>
     </form>
   );
 }
 
-function Packinglist({ item }) {
+function Packinglist({ items }) {
   return (
     <div className="list">
       <ul>
-        {item.map((item) => (
+        {items.map((item) => (
           <Item key={item.id} item={item} />
         ))}
       </ul>
