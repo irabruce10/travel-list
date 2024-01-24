@@ -25,6 +25,11 @@ function App() {
       )
     );
   }
+
+  function handleReset() {
+    setItem([]);
+  }
+
   return (
     <div className="app">
       <Logo />
@@ -33,6 +38,7 @@ function App() {
         items={items}
         onDeleteItem={handleDeleteItem}
         onToggleItem={handleToggleItem}
+        onReset={handleReset}
       />
       <Stats items={items} />
     </div>
@@ -77,7 +83,7 @@ function Form({ onAddItem }) {
   );
 }
 
-function Packinglist({ items, onDeleteItem, onToggleItem }) {
+function Packinglist({ items, onDeleteItem, onToggleItem, onReset }) {
   const [sortItem, setSortItem] = useState("input");
   let n;
 
@@ -102,12 +108,15 @@ function Packinglist({ items, onDeleteItem, onToggleItem }) {
         ))}
       </ul>
 
-      <div className="sort">
+      <div className="actions">
         <select value={sortItem} onChange={(e) => setSortItem(e.target.value)}>
           <option value="input">Sort by input order</option>
           <option value="description">Sort by description</option>
           <option value="packed">Sort by packed status</option>
         </select>
+        <button value={items} onClick={onReset}>
+          Reset
+        </button>
       </div>
     </div>
   );
