@@ -27,7 +27,11 @@ function App() {
   }
 
   function handleReset() {
-    setItem([]);
+    const confirmed = window.confirm(
+      "Are you sure you want to delete all items?"
+    );
+
+    if (confirmed) setItem([]);
   }
 
   return (
@@ -115,7 +119,7 @@ function Packinglist({ items, onDeleteItem, onToggleItem, onReset }) {
           <option value="packed">Sort by packed status</option>
         </select>
         <button value={items} onClick={onReset}>
-          Reset
+          Clear List
         </button>
       </div>
     </div>
