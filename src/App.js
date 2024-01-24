@@ -88,7 +88,7 @@ function Packinglist({ items, onDeleteItem, onToggleItem }) {
       .sort((a, b) => a.description.localeCompare(b.description));
 
   if (sortItem === "packed")
-    n = items.slice().sort((a, b) => a.packed - b.packed);
+    n = items.slice().sort((a, b) => Number(a.packed) - Number(b.packed));
   return (
     <div className="list">
       <ul>
@@ -104,9 +104,9 @@ function Packinglist({ items, onDeleteItem, onToggleItem }) {
 
       <div className="sort">
         <select value={sortItem} onChange={(e) => setSortItem(e.target.value)}>
-          <option value="input">input</option>
-          <option value="description">description</option>
-          <option value="packed">packed</option>
+          <option value="input">Sort by input order</option>
+          <option value="description">Sort by description</option>
+          <option value="packed">Sort by packed status</option>
         </select>
       </div>
     </div>
